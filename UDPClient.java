@@ -11,7 +11,7 @@
 import java.io.*;
 import java.net.*;
 
-class UDPClient {
+class Red {
 	
     public static void main(String args[]) throws Exception
     {
@@ -36,9 +36,37 @@ class UDPClient {
 
 		clientSocket.receive(receivePacket);
 
-		String modifiedSentence = new String(receivePacket.getData());
-
-		System.out.println("RESPONSE:" + modifiedSentence);
+		String response = new String(receivePacket.getData());
+		
+		if (response.equals("100")) {
+			System.out.println("You are the first to arrive. Please wait for second user.");
+			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+			clientSocket.receive(receivePacket);
+			String response = new String(receivePacket.getData());
+			if (response.equals("200") {
+				System.out.println("Second user has connected. Send message.");
+				String sentence = inFromUser.readLine();
+				sendData = sentence.getBytes();
+				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876);
+			}
+		}
+		else if (response.equals("200")) {
+			System.out.println("You are the second to arrive. Please wait for first user's message.");
+			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+			clientSocket.receive(receivePacket);
+			String response = new String(receivePacket.getData());
+			if(response.equals("300") {
+				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+				clientSocket.receive(receivePacket);
+				String response = new String(receivePacket.getData());
+				System.out.println(response);
+			}
+		}
+		else if(!(response.equals("300") && response.equals("400"))) {
+			System.out.println(response);
+		}	
+		System.out.println("RESPONSE:" + response);
+		
       
 		if (sentence.equals("Goodbye")){
 			clientSocket.close();
