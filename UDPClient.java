@@ -62,7 +62,29 @@ class Red {
 				System.out.println(response);
 			}
 		}
-		else if(!(response.equals("300") && response.equals("400"))) {
+		else if (response.equals("300")) {
+			System.out.println("Message sent successfully. Send another? (Type yes or no)");
+			String newSentence = inFromUser.readLine();
+			if (newSentence.equals("yes")) {
+				System.out.println("Type next message: ");
+				String sentence = inFromUser.readLine();
+				sendData = sentence.getBytes();
+				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876);
+				clientSocket.send(sendPacket);
+			}
+			else {
+			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+			clientSocket.receive(receivePacket);
+			String response = new String(receivePacket.getData());
+			System.out.println(response);
+			}
+		}
+		else if(response.equals("400")) {
+			System.out.println("Second user has left. Goodbye.")
+			clientSocket.close();
+			break;
+		}
+		else {
 			System.out.println(response);
 		}	
 		System.out.println("RESPONSE:" + response);
