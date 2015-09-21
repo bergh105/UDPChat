@@ -18,7 +18,7 @@ class Red {
 		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 		DatagramSocket clientSocket = new DatagramSocket();
 
-		InetAddress IPAddress = InetAddress.getByName("10.49.139.94"); //server IP
+		InetAddress IPAddress = InetAddress.getByName("10.134.11.68"); //server IP
 
 		while(true){
 			byte[] sendData = new byte[1024];
